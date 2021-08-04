@@ -8,6 +8,9 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 
+// 5.a
+const connectMongo = require('connect-mongo')
+
 const app = express()
 const port = 3000
 const hostname = '127.0.0.1'
@@ -38,13 +41,23 @@ mongoose.connect('mongodb://127.0.0.1/mongodbdbtestt_db',{
     useCreateIndex:true
 })
 
+
+
+// 5. asama
+// 5.b
+const MongoStore =   new connectMongo(expressSession)
+
 // 3. asama middleware olarak kullanildi
 app.use(expressSession({
     secret:'testotesto',
     resave: false,
-    saveUninitialized:true
+    saveUninitialized:true,
+    // 5.c
+    store: new  MongoStore({ mongooseConnection: mongoose.connection })
 
 }))
+
+
 app.use(fileUpload())
 
 
@@ -71,7 +84,8 @@ app.use('/users', users)
 
 
 
-const posts = require('./routes/posts')
+const posts = require('./routes/posts');
+const { connect } = require('./routes/posts');
 app.use('/posts',posts)
 
  

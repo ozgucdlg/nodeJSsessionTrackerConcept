@@ -10,3 +10,24 @@ app.use(expressSession({
     saveUninitialized:true
 
 }))
+
+4. asama  add post yapabilmek icin log in gerekli bu kodu yazacagiz
+
+router.get('/new', (req,res)  => {
+    // 
+    if(req.session.userId){
+
+        return res.render('site/addpost')
+    }
+
+    res.redirect('/users/login')
+
+
+
+
+    5.asama kullanici bilgilerini session ile birlikte veritabanina yuklemek npm connect mongo kullanilir
+    5.a => npm i connect-mongo install edilir
+    5.b => kaydi yapilir =>  // 5.b
+const mongoStore = connectMongo(expressSession)
+    // 5.c
+    store:new MongoStore({ mongooseConnection : mongoose.connection })

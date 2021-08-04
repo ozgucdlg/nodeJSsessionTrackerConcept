@@ -1,0 +1,12 @@
+ 1. asama npm i express-session
+
+// 2. asama sisteme entegre edili
+const expressSession = require('express-session')
+
+ // 3. asama middleware olarak kullanildi
+app.use(expressSession({
+    secret:'testotesto',
+    resave: false,
+    saveUninitialized:true
+
+}))

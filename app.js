@@ -45,7 +45,7 @@ mongoose.connect('mongodb://127.0.0.1/mongodbdbtestt_db',{
 
 // 5. asama
 // 5.b
-const MongoStore =   new connectMongo(expressSession)
+const MongoStore =     connectMongo(expressSession)
 
 // 3. asama middleware olarak kullanildi
 app.use(expressSession({
@@ -56,6 +56,14 @@ app.use(expressSession({
     store: new  MongoStore({ mongooseConnection: mongoose.connection })
 
 }))
+
+// Flash  - meesage Middleware
+app.use((req, res, next ) => {
+
+        res.locals.sessionFlash = req.session.sessionFlash
+        delete req.session.sessionFlash
+        next()
+})
 
 
 app.use(fileUpload())

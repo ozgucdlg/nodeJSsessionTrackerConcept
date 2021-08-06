@@ -43,9 +43,14 @@ router.post('/test', (req,res)  => {
     Post.create({
         ...req.body,
         post_image:`/img/postimages/${post_image.name}`,
-    })
+    }, )
+    req.session.sessionFlash = {
+        type: 'alert alert-success',
+        message:'postunuz olusturuldu'
+    }
 
-    res.redirect('/')
+
+    res.redirect('/blog')
  
  })
 
